@@ -1,0 +1,711 @@
+    html {
+        height: 100%;
+    }
+    
+    @font-face {
+        src: '../font/icofont/fonts/icofont.ttf';
+        font-family: 'Icofont';
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Bahnschrift', Arial, Helvetica, sans-serif;
+        background: linear-gradient(to top, lightblue, rgb(47, 47, 247));
+        overflow: hidden;
+    }
+    
+    .weather-forecast {
+        height: inherit;
+        display: flex;
+    }
+    
+    .temp,
+    .weekly-forecast {
+        height: inherit;
+        flex: 1;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .temp-and-weather {
+        text-align: center;
+        width: 100%;
+        color: #fff;
+        user-select: none;
+    }
+    
+    .temp-and-weather h1 {
+        font-size: 370px;
+        margin: 0;
+        padding: 0;
+        text-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+    }
+    
+    .temp-and-weather span {
+        font-size: 20px;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+    }
+    
+    .temp .time {
+        width: 100%;
+    }
+    
+    .date-and-city {
+        padding: 0 0 0 15px;
+        margin-bottom: 10px;
+        color: #000;
+        align-self: flex-end;
+        flex: 1;
+        perspective: 1000px;
+    }
+    
+    .date-and-city a {
+        font-size: 50px;
+        text-decoration: none;
+        color: #000;
+        position: relative;
+    }
+    
+    .date-and-city a::after {
+        content: '\ef79';
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        font: normal 50px 'Icofont';
+        bottom: 10px;
+        right: -50px;
+        animation: anim 3s linear infinite;
+    }
+    
+    .date-and-city a:hover::after {
+        color: #fff;
+    }
+    
+    @keyframes anim {
+        100% {
+            transform: rotateY(360deg);
+        }
+    }
+    
+    .weather-description {
+        align-self: flex-end;
+        margin-bottom: 10px;
+        flex: 1;
+    }
+    
+    .weather-description table {
+        padding-left: 55px;
+        text-align: right;
+    }
+    
+    .weather-description table th:not(:last-child),
+    .weather-description table td:not(:last-child) {
+        padding: 5px;
+        text-align: left;
+    }
+    
+    .weekly-forecast ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        width: 100%;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-around;
+        box-sizing: border-box;
+    }
+    
+    .weekly-forecast ul li:not(:last-child) {
+        margin-right: 10px;
+        border-right: 1px solid;
+    }
+    
+    .weekly-forecast ul li {
+        flex: 1;
+        border-radius: 0 0 5px 5px;
+        text-align: center;
+        overflow: hidden;
+        color: #fff;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+        padding: 5px;
+    }
+    
+    .weekly-forecast ul li .dates {
+        font-size: 1em;
+    }
+    
+    .weekly-forecast ul li h2 {
+        margin: 0;
+        padding: 0;
+        font-size: 5em;
+    }
+    
+    .weather-forecast .weather-table {
+        box-sizing: border-box;
+    }
+    
+    .weekly-forecast ul li table tr {
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+        font-size: 1em;
+    }
+    
+    .weekly-forecast ul li table th {
+        border-bottom: 1px solid;
+        margin-bottom: 5px;
+    }
+    
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, .5);
+    }
+    
+    .select-city {
+        width: 450px;
+        height: 345px;
+        border: 3px solid #fff;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        background: #fff;
+        border-radius: 10px;
+        position: relative;
+        box-sizing: border-box;
+    }
+    
+    .countries,
+    .cities {
+        height: 300px;
+        flex-basis: 50%;
+        overflow: hidden;
+        border-radius: 10px 0 0 0;
+    }
+    
+    .cities {
+        border-radius: 0 10px 0 0;
+    }
+    
+    .search {
+        height: 30px;
+        flex-basis: 100%;
+        align-self: flex-end;
+        margin-bottom: 2px;
+        text-align: center;
+        padding-bottom: 5px;
+    }
+    
+    .search input {
+        padding: 0;
+        height: 100%;
+        width: 70%;
+        border: 1px solid;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 20px;
+    }
+    
+    .search input:focus::-webkit-input-placeholder {
+        opacity: 0;
+    }
+    
+    .countries ul,
+    .cities ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 100%;
+    }
+    
+    .countries ul {
+        justify-content: space-between;
+    }
+    
+    .cities ul {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    
+    .cities ul::-webkit-scrollbar {
+        width: 5px;
+        background: rgb(214, 214, 214);
+    }
+    
+    .cities ul::-webkit-scrollbar-thumb {
+        background: rgb(117, 117, 117);
+    }
+    
+    .countries ul li,
+    .cities ul li {
+        padding: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    .cities ul li {
+        text-align: center;
+    }
+    
+    .countries ul li:hover,
+    .cou-active {
+        background: orange;
+        color: #fff;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    }
+    
+    .cities ul li:hover,
+    .city-active {
+        background: lightblue;
+        color: #fff;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    }
+    
+    #close-modal {
+        position: absolute;
+        top: -35px;
+        right: -25px;
+        width: 30px;
+        height: 30px;
+        font: normal 35px 'Icofont';
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: rgb(255, 0, 0);
+    }
+    
+    #close-modal:hover {
+        color: #ff6347;
+    }
+    
+    .hide {
+        display: none;
+    }
+    /* /////////////////////////////////////////////////////////////////////////////////////////// */
+    /* 320px */
+    
+    @media screen and (min-width: 320px) and (max-width: 767px) {
+        html {
+            height: 200%;
+        }
+        body {
+            height: 100%;
+            overflow: initial;
+        }
+        .weather-forecast {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .temp,
+        .weekly-forecast {
+            height: 50%;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+        }
+        /* Текущий день */
+        .temp-and-weather {
+            padding-top: 25px;
+            text-align: center;
+            width: 100%;
+        }
+        .temp-and-weather h1 {
+            font-size: 150px;
+        }
+        .temp-and-weather span {
+            font-size: 20px;
+        }
+        .date-and-city {
+            padding: 0;
+            margin-top: 65px;
+            margin-bottom: 0;
+            align-self: center;
+            perspective: 1000px;
+            text-align: center;
+            width: 100%;
+        }
+        .date-and-city a {
+            font-size: 30px;
+        }
+        .date-and-city a::after {
+            width: 30px;
+            height: 30px;
+            font: normal 30px 'Icofont';
+            bottom: 7px;
+            right: -30px;
+        }
+        .weather-description {
+            align-self: center;
+            margin-bottom: 0;
+            flex: 1;
+            font-size: 20px;
+            width: 100%;
+        }
+        .weather-description table {
+            width: 100%;
+            padding: 25px;
+        }
+        .weather-description table th:not(:last-child),
+        .weather-description table td:not(:last-child) {
+            padding: 5px;
+            text-align: left;
+        }
+        /* Пять дней */
+        .weekly-forecast ul {
+            height: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+        }
+        .weekly-forecast ul li:not(:last-child) {
+            margin-right: 0;
+            border-right: none;
+        }
+        .weekly-forecast ul li {
+            float: 1;
+            border-radius: 0;
+            overflow: hidden;
+            color: #fff;
+            padding: 0;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        .weekly-forecast ul li .dates {
+            font-size: .9em;
+            width: 100%;
+            height: 17px;
+            background: red;
+            border-bottom: 1px solid #fff;
+            text-align: left;
+            text-indent: 5px;
+        }
+        .weekly-forecast ul li h2 {
+            margin: 0;
+            padding: 5px;
+            font-size: 4em;
+        }
+        .weather-forecast .weather-table {
+            flex: 1;
+        }
+        .weather-forecast .weather-table table {
+            width: 100%;
+        }
+        .weekly-forecast ul li .weather-table table tr {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: .9em;
+            border-bottom: 1px solid;
+        }
+        .weekly-forecast ul li .weather-table table th {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .select-city {
+            width: 300px;
+            height: 300px;
+        }
+        .countries,
+        .cities {
+            height: 250px;
+        }
+        .search {
+            height: 30px;
+            margin-bottom: 2px;
+            padding-bottom: 5px;
+        }
+        .search input {
+            font-size: 18px;
+        }
+        .countries ul li,
+        .cities ul li {
+            padding: 10px;
+            font-size: 18px;
+        }
+        #close-modal {
+            top: -45px;
+            right: 0px;
+            width: 35px;
+            height: 35px;
+            font: normal 35px 'Icofont';
+        }
+    }
+    /* /////////////////////////////////////////////////////////////////////////////////////////// */
+    /* 375px */
+    
+    @media screen and (min-width: 375px) {
+        .temp-and-weather h1 {
+            font-size: 170px;
+        }
+        .temp-and-weather span {
+            font-size: 20px;
+        }
+        .date-and-city a {
+            font-size: 35px;
+        }
+        .date-and-city a::after {
+            width: 35px;
+            height: 35px;
+            font: normal 35px 'Icofont';
+            bottom: 7px;
+            right: -35px;
+        }
+        .weather-description {
+            font-size: 20px;
+        }
+        .weather-description table {
+            padding: 25px;
+        }
+        /* Пять дней */
+        .weekly-forecast ul li h2 {
+            padding: 7px 7px 7px 15px;
+        }
+        .weather-forecast .weather-table table {
+            width: 90%;
+            margin: auto;
+        }
+        #close-modal {
+            top: -45px;
+            right: -30px;
+            width: 35px;
+            height: 35px;
+            font: normal 35px 'Icofont';
+        }
+    }
+    /* /////////////////////////////////////////////////////////////////////////////////////////// */
+    /* 425px */
+    
+    @media screen and (min-width: 425px) {
+        .temp-and-weather h1 {
+            font-size: 250px;
+        }
+        .temp-and-weather span {
+            font-size: 20px;
+        }
+        .date-and-city {
+            margin-top: 25px;
+        }
+        .date-and-city a {
+            font-size: 35px;
+        }
+        .date-and-city a::after {
+            width: 35px;
+            height: 35px;
+            font: normal 35px 'Icofont';
+            bottom: 7px;
+            right: -35px;
+        }
+        .weather-description {
+            font-size: 20px;
+        }
+        .weather-description table {
+            padding: 15px;
+        }
+        /* Пять дней */
+        .weekly-forecast ul li h2 {
+            padding: 15px;
+        }
+        .weather-forecast .weather-table table {
+            width: 85%;
+            margin: auto;
+        }
+        .select-city {
+            width: 350px;
+            height: 350px;
+        }
+        .countries,
+        .cities {
+            height: 280px;
+        }
+        .search {
+            height: 30px;
+            margin-bottom: 2px;
+            padding-bottom: 10px;
+        }
+        .search input {
+            font-size: 18px;
+        }
+        .countries ul li,
+        .cities ul li {
+            padding: 10px;
+            font-size: 18px;
+        }
+        #close-modal {
+            top: -45px;
+            right: -30px;
+            width: 35px;
+            height: 35px;
+            font: normal 35px 'Icofont';
+        }
+    }
+    /* ////////////////////////////////////////////////////////////////////////////////// */
+    /* 768px */
+    
+    @media screen and (min-width: 768px) and (max-width: 1439px) {
+        html {
+            height: 100%;
+        }
+        body {
+            height: 100%;
+            overflow: initial;
+        }
+        .weather-forecast {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .temp,
+        .weekly-forecast {
+            height: initial;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+        }
+        /* Текущий день */
+        .temp-and-weather {
+            padding-top: 0;
+            text-align: center;
+            align-self: flex-start;
+            flex: 0 0 50%;
+        }
+        .temp-and-weather h1 {
+            font-size: 150px;
+        }
+        .temp-and-weather span {
+            font-size: 20px;
+        }
+        .date-and-city {
+            padding: 0;
+            perspective: 1000px;
+            text-align: center;
+            margin: 0;
+            order: 1;
+            flex: 1;
+        }
+        .date-and-city a {
+            font-size: 30px;
+        }
+        .date-and-city a::after {
+            width: 30px;
+            height: 30px;
+            font: normal 30px 'Icofont';
+            bottom: 7px;
+            right: -30px;
+        }
+        .weather-description {
+            margin-bottom: 0;
+            font-size: 20px;
+            flex: 0 0 50%;
+            order: 0;
+            align-self: stretch;
+        }
+        .weather-description table {
+            width: 100%;
+            padding: 25px;
+        }
+        .weather-description table th:not(:last-child),
+        .weather-description table td:not(:last-child) {
+            padding: 5px;
+            text-align: left;
+        }
+        /* Пять дней */
+        .weekly-forecast ul {
+            height: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+        }
+        .weekly-forecast ul li:not(:last-child) {
+            margin-right: 0;
+        }
+        .weekly-forecast ul li {
+            float: 1;
+            border-radius: 0;
+            overflow: hidden;
+            color: #fff;
+            padding: 0;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        .weekly-forecast ul li .dates {
+            font-size: .9em;
+            width: 100%;
+            height: 17px;
+            background: red;
+            border-bottom: 1px solid #fff;
+            text-align: left;
+            text-indent: 5px;
+        }
+        .weekly-forecast ul li h2 {
+            margin: 0;
+            padding: 0;
+            font-size: 4em;
+            width: 100%;
+        }
+        .weather-forecast .weather-table {
+            flex: 1;
+        }
+        .weather-forecast .weather-table table {
+            width: 100%;
+        }
+        .weekly-forecast ul li .weather-table table tr {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: .9em;
+            border-bottom: 1px solid;
+            padding: 15px 5px 15px 5px;
+        }
+        .weekly-forecast ul li .weather-table table tr:last-child {
+            border-bottom: none;
+        }
+        .weekly-forecast ul li .weather-table table th {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .select-city {
+            width: 450px;
+            height: 350px;
+        }
+        .countries,
+        .cities {
+            height: 300px;
+        }
+        .search {
+            height: 30px;
+            margin-bottom: 2px;
+            padding-bottom: 5px;
+        }
+        .search input {
+            font-size: 20px;
+        }
+        .countries ul li,
+        .cities ul li {
+            padding: 10px;
+            font-size: 20px;
+        }
+        #close-modal {
+            top: -45px;
+            right: -35px;
+            width: 35px;
+            height: 35px;
+            font: normal 35px 'Icofont';
+        }
+    }

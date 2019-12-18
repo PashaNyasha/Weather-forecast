@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="font/icofont/icofont.min.css">
+</head>
+
+<body>
+    <!-- Сверху температура, 
+        слева город и дата, справа влажность, скорость ветра и т.д. -->
+    <article class="weather-forecast">
+
+        <section class="temp">
+            <div class="temp-and-weather">
+                <h1></h1>
+                <span></span>
+            </div>
+            <div class="date-and-city">
+                <!-- При клике на город вызовется всплывающее окно с выбором городов -->
+                <a href="#"></a>
+                <br>
+                <span class="time"></span>
+            </div>
+
+            <div class="weather-description">
+                <table></table>
+            </div>
+
+        </section>
+
+        <!-- Прогноз на 7 дней -->
+        <section class="weekly-forecast">
+            <ul></ul>
+        </section>
+
+    </article>
+
+    <article class="modal hide">
+        <section class="select-city">
+            <button id="close-modal">&#xeee4;</button>
+            <nav class="countries">
+                <ul>
+                    <li data-country="RU">Russia</li>
+                    <li data-country="JP">Japan</li>
+                    <li data-country="FR">France</li>
+                    <li data-country="US">USA</li>
+                    <li data-country="IT">Italy</li>
+                    <li data-country="DE">Germany</li>
+                </ul>
+            </nav>
+            <nav class="cities">
+                <ul></ul>
+            </nav>
+            <div class="search">
+                <input type="text" name="search" id="search" disabled>
+            </div>
+        </section>
+    </article>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
